@@ -18,19 +18,27 @@ warnings.filterwarnings('ignore', category=DeprecationWarning)
 
 class MLTrainingModel:
     # Initialise Class properties
-    def __init__(self, features, labels, val_features, val_labels, model='GBR'):
+    def __init__(self, features, labels, val_features, val_labels, model='GBR', filecsv=True):
         self.features = features
         self.labels = labels
         self.val_features = val_features
         self.val_labels = val_labels
         self.model = model
+        self.filecsv = filecsv
 
     # Import csv data into Dataframes
     def create_df(self):
-        tr_features = pd.read_csv(self.features)
-        tr_labels = pd.read_csv(self.labels, header=None)
-        val_features = pd.read_csv(self.val_features)
-        val_labels = pd.read_csv(self.val_labels, header=None)
+        if self.filecsv:
+            tr_features = pd.read_csv(self.features)
+            tr_labels = pd.read_csv(self.labels, header=None)
+            val_features = pd.read_csv(self.val_features)
+            val_labels = pd.read_csv(self.val_labels, header=None)
+        else:
+            tr_features = pd.DataFrame(self.features)
+            tr_labels = pd.DataFrame(self.labels)
+            val_features = pd.DataFrame(self.val_features)
+            val_labels = pd.DataFrame(self.val_labels)
+
         return tr_features, tr_labels, val_features, val_labels
 
     # Create GBR model based on experimental data
