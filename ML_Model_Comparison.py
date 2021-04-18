@@ -10,10 +10,14 @@ import numpy as np
 
 class CompareModels:
     # Initialise Class properties
-    def __init__(self, val_features, val_labels, mdlnames=('GBR', 'RFR')):
-        self.val_features = pd.read_csv(val_features)
-        self.val_labels = pd.read_csv(val_labels, header=None)
+    def __init__(self, val_features, val_labels, mdlnames=('GBR', 'RFR'), filecsv=True):
         self.mdlnames = mdlnames
+        if filecsv:
+            self.val_features = pd.read_csv(val_features)
+            self.val_labels = pd.read_csv(val_labels, header=None)
+        else:
+            self.val_features = val_features
+            self.val_labels = val_labels
 
     # Load Pickled models into a dictionary
     def load_models(self):
@@ -63,5 +67,3 @@ class CompareModels:
 
 if __name__ == '__main__':
     CompareModels()
-
-
