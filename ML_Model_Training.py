@@ -91,7 +91,7 @@ class MLTrainingModel:
 
     # Pickle and save ML model
     def savemodel(self):
-        joblib.dump(self.fit_model()[0].best_estimator_, self.model + 'model.pkl')
+        joblib.dump(self.fit_model()[0].best_estimator_, self.model + '_model.pkl')
 
     def validate(self):
         R2Er = r2_score(self.create_df()[3], self.fit_model()[0].predict(self.create_df()[2]))
