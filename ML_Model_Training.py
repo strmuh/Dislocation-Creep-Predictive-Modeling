@@ -94,8 +94,10 @@ class MLTrainingModel:
         joblib.dump(self.fit_model()[0].best_estimator_, self.model + '_model.pkl')
 
     def validate(self):
-        R2Er = r2_score(self.create_df()[3], self.fit_model()[0].predict(self.create_df()[2]))
-        RMSE = mean_squared_error(self.create_df()[3], self.fit_model()[0].predict(self.create_df()[2]), squared=False)
+        create_model = self.create_df()
+        fit_model = self.fit_model()
+        R2Er = r2_score(create_model[3], fit_model[0].predict(create_model[2]))
+        RMSE = mean_squared_error(create_model[3], fit_model[0].predict(create_model[2]), squared=False)
         print(RMSE, R2Er)
 
     # Plot model prediction results against experimental data
